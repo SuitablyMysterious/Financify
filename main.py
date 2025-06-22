@@ -22,7 +22,8 @@ To exit, enter 5.
         amount = input("Enter the amount of the transaction: ")
         description = input("Enter a description for the transaction: ")
         reference = input("Enter a reference for the transaction: ")
-        importer.Transaction(date, amount, description, reference).store()
+        category = input("Enter the category name for the transaction: ")
+        importer.Transaction(date, amount, description, reference, category).store()
     elif choice == "3":
         try:
             with open('data/categories.csv', 'r') as file:
