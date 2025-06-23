@@ -1,5 +1,5 @@
 import importer
-import os
+import os, datetime
 
 print("Welcome to financify:")
 
@@ -18,11 +18,26 @@ To exit, enter 5.
         description = input("Enter a description here: ")
         importer.Category(name, description).store()
     elif choice == "2":
-        date = input("Enter the date of the transaction (YYYY-MM-DD): ")
-        amount = input("Enter the amount of the transaction: ")
-        description = input("Enter a description for the transaction: ")
-        reference = input("Enter a reference for the transaction: ")
-        category = input("Enter the category name for the transaction: ")
+        date_str = input("Enter the date of the transaction (YYYY-MM-DD): ")
+        try:
+            date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
+        except ValueError:
+            print("Invalid date format. Please use YYYY-MM-DD.")
+            continue
+        amount = float(input("Enter the amount of the transaction: "))
+        try:
+            if amount <= 0:
+                raise ValueError("Amount must be positive.")
+        except ValueError as e:
+            print(e)
+            continue
+        description = str(input("Enter a description for the transaction: "))
+        reference = str(input("Enter a reference for the transaction: "))
+        category_name = input("Enter the category name for the transaction: ")
+        category = importer.Category.does_exist(category_name)
+        if not category:
+            print(f"Category '{category_name}' does not exist. Please create it first.")
+            continue
         importer.Transaction(date, amount, description, reference, category).store()
     elif choice == "3":
         try:
