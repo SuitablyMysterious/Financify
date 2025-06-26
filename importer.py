@@ -8,8 +8,8 @@ def setup_logging():
         level=logging.DEBUG,
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         handlers=[
-            logging.FileHandler('data/financify.log'),
-            logging.StreamHandler()  # This keeps console output too
+            logging.FileHandler('data/financify.log')
+            # Removed logging.StreamHandler() - this was printing to console
         ]
     )
     

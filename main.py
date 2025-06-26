@@ -1,7 +1,8 @@
-import importer, logger
+import importer
 import os, datetime
 
-logger.setup_logging()
+# Use the logger from importer module
+logger = importer.logger
 
 logger.info("Logger Initiated")
 logger.info("Starting financify")
@@ -13,14 +14,14 @@ loopIteration = 0
 logger.debug("Entering main loop")
 
 while on:
-    logger.debug("Loop iteration {loopIteration} started")
+    logger.debug(f"Loop iteration {loopIteration} started")
     choice = input("""To enter a category, enter 1;
 To enter a transaction, enter 2;
 To view all categories, enter 3;
 To view all transactions, enter 4;
 To exit, enter 5. 
 """)
-    logger.debug("User choice: {choice}")
+    logger.debug(f"User choice: {choice}")
     if choice == "1":
         name = input("What is the name of the category: ")
         description = input("Enter a description here: ")
@@ -73,3 +74,5 @@ To exit, enter 5.
         print("Exiting the program. Goodbye!")
         logger.info("User exited the program")
         on = False
+    loopIteration += 1
+    logger.debug(f"Loop iteration {loopIteration} ended")
