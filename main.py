@@ -1,18 +1,26 @@
-import importer
+import importer, logger
 import os, datetime
+
+logger.setup_logging()
+
+logger.info("Logger Initiated")
+logger.info("Starting financify")
 
 print("Welcome to financify:")
 
 on = True
+loopIteration = 0
+logger.debug("Entering main loop")
 
 while on:
+    logger.debug("Loop iteration {loopIteration} started")
     choice = input("""To enter a category, enter 1;
 To enter a transaction, enter 2;
 To view all categories, enter 3;
 To view all transactions, enter 4;
 To exit, enter 5. 
 """)
-
+    logger.debug("User choice: {choice}")
     if choice == "1":
         name = input("What is the name of the category: ")
         description = input("Enter a description here: ")
@@ -52,6 +60,7 @@ To exit, enter 5.
                 for line in file:
                     print(line.strip())
         except FileNotFoundError:
+            logger.error("No transactions found")
             print("No transactions found.")
     elif choice == "5":
         for path in ['data/categories.csv', 'data/transactions.csv']:
@@ -59,6 +68,8 @@ To exit, enter 5.
                 os.remove(path)
                 print(f"Deleted {path}")
             except FileNotFoundError:
+                logger.warning(f"File {path} not found, cannot delete.")
                 pass
         print("Exiting the program. Goodbye!")
+        logger.info("User exited the program")
         on = False
