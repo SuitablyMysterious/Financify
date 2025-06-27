@@ -26,15 +26,18 @@ class Category:
         if os.path.isfile('data/categories.csv'):
             logger.debug("categories.csv exists, appending to it.")
             with open('data/categories.csv', 'a', newline='') as file:
+                logger.debug("Appending to existing categories.csv file.")
                 writer = csv.writer(file)
                 writer.writerow([self.name, self.description])
+                logger.debug(f"Category {self.name} stored successfully.")
         else:
             with open('data/categories.csv', 'w', newline='') as file:
-                logger.debug("categories.csv does not exist, creating a new one.")
+                logger.debug("categories.csv does not exist, creating a new file.")
                 start_row = ['name', 'description']
                 writer = csv.writer(file)
                 writer.writerow(start_row)
                 writer.writerow([self.name, self.description])
+                logger.debug(f"Category {self.name} stored successfully.")
     def does_exist(self):
         if os.path.isfile('data/categories.csv'):
             with open('data/categories.csv', 'r') as file:

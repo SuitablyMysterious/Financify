@@ -74,5 +74,6 @@ To exit, enter 5.
         print("Exiting the program. Goodbye!")
         logger.info("User exited the program")
         on = False
-    loopIteration += 1
     logger.debug(f"Loop iteration {loopIteration} ended")
+    loopIteration += 1
+    
