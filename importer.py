@@ -49,12 +49,13 @@ class Category:
             return False
 
 class Transaction:
-    def __init__(self, date:datetime.date, amount:float, description:str, reference:str, categorty:Category):
+    def __init__(self, name:str, date:datetime.date, amount:float, description:str, reference:str, category:Category):
+        self.name = name
         self.date = date
         self.amount = amount
         self.description = description
         self.reference = reference
-        self.category = categorty
+        self.category = category
         logger.debug(f"Transaction created: {self.date}, {self.amount}, {self.description}, {self.reference}, {self.category.name}")
 
     def store(self):
