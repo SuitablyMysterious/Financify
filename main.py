@@ -13,20 +13,35 @@ on = True
 loopIteration = 0
 logger.debug("Entering main loop")
 
+# Use the display functions from importer
+def display_menu():
+    importer.print_header()
+    print("Choose an option:")
+    print("1. Enter a category")
+    print("2. Enter a transaction") 
+    print("3. View all categories")
+    print("4. View all transactions")
+    print("5. Exit")
+    print("-" * 30)
+
 while on:
-    logger.debug(f"Loop iteration {loopIteration} started")
-    choice = input("""To enter a category, enter 1;
-To enter a transaction, enter 2;
-To view all categories, enter 3;
-To view all transactions, enter 4;
-To exit, enter 5. 
-""")
-    logger.debug(f"User choice: {choice}")
+    display_menu()
+    choice = input("Enter your choice: ")
+    
     if choice == "1":
-        name = input("What is the name of the category: ")
-        description = input("Enter a description here: ")
+        importer.print_header()
+        print("CREATE NEW CATEGORY")
+        print("-" * 20)
+        name = input("Category name: ")
+        description = input("Description: ")
         importer.Category(name, description).store()
+        input("\nPress Enter to continue...")
+        
     elif choice == "2":
+        importer.print_header()
+        print("CREATE NEW TRANSACTION")
+        print("-" * 22)
+        
         # Name input loop
         while True:
             name = input("Enter the name of the transaction: ")
@@ -140,14 +155,24 @@ To exit, enter 5.
         category = importer.Category(category_name.strip(), "")
         importer.Transaction(name, date, amount_float, description, reference, category).store()
         logger.info(f"Transaction '{name}' created successfully")
+        input("\nPress Enter to continue...")
+        
     elif choice == "3":
+        importer.print_header()
+        print("ALL CATEGORIES")
+        print("-" * 20)
         try:
             with open('data/categories.csv', 'r') as file:
                 for line in file:
                     print(line.strip())
         except FileNotFoundError:
             print("No categories found.")
+        input("\nPress Enter to continue...")
+        
     elif choice == "4":
+        importer.print_header()
+        print("ALL TRANSACTIONS")
+        print("-" * 22)
         try:
             with open('data/transactions.csv', 'r') as file:
                 for line in file:
@@ -155,6 +180,7 @@ To exit, enter 5.
         except FileNotFoundError:
             logger.error("No transactions found")
             print("No transactions found.")
+        input("\nPress Enter to continue...")
 
     logger.debug(f"Loop iteration {loopIteration} ended")
     loopIteration += 1
