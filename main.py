@@ -63,7 +63,10 @@ To exit, enter 5.
         except FileNotFoundError:
             logger.error("No transactions found")
             print("No transactions found.")
-    elif choice == "5":
+
+    logger.debug(f"Loop iteration {loopIteration} ended")
+    loopIteration += 1
+    if choice == "5":
         for path in ['data/categories.csv', 'data/transactions.csv']:
             try:
                 os.remove(path)
@@ -74,6 +77,4 @@ To exit, enter 5.
         print("Exiting the program. Goodbye!")
         logger.info("User exited the program")
         on = False
-    logger.debug(f"Loop iteration {loopIteration} ended")
-    loopIteration += 1
     
